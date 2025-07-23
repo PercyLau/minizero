@@ -1,3 +1,4 @@
+
 cmake_minimum_required(VERSION 3.16)
 
 project(minizero)
@@ -5,7 +6,9 @@ project(minizero)
 # specify the C++ standard
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
+set(PYTHON_EXECUTABLE "/usr/bin/python")
 
+find_package(pybind11 REQUIRED)
 find_package(Torch REQUIRED)
 find_package(Boost COMPONENTS system thread iostreams)
 find_package(ale REQUIRED)

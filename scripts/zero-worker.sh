@@ -37,7 +37,7 @@ else
 	num_gpu=$(nvidia-smi -L | wc -l)
 	gpu_list=$(echo $num_gpu | awk '{for(i=0;i<$1;i++)printf i}')
 	batch_size=64
-	max_num_cpu_thread_per_gpu=4
+	max_num_cpu_thread_per_gpu=64
 	additional_conf_str=""
 fi
 
@@ -166,7 +166,7 @@ do
 					CONF_FILE=$(ls ${var[0]}/*.cfg)
 					# format: py/Train.py train_dir conf_file
 					logAndSend "CUDA_VISIBLE_DEVICES=${cuda_devices} PYTHONPATH=. python ${op_executable_file} ${game_type} ${var[0]} ${CONF_FILE}"
-					CUDA_VISIBLE_DEVICES=${cuda_devices} PYTHONPATH=. python ${op_executable_file} ${game_type} ${var[0]} ${CONF_FILE} 0<&$broker_fd 1>&$broker_fd 2> >(tee -a ${var[0]}/op.log >&2)
+					CUDA_VISIBLE_DEVICES=${cuda_devices} MKL_THREADING_LAYER="GNU" PYTHONPATH=. python ${op_executable_file} ${game_type} ${var[0]} ${CONF_FILE} 0<&$broker_fd 1>&$broker_fd 2> >(tee -a ${var[0]}/op.log >&2)
 				else
 					echo "read format error"
 					echo "msg: $line"

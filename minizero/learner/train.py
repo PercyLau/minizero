@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+import os
+os.environ["MKL_THREADING_LAYER"] = "GNU"
 import sys
 import time
 import torch

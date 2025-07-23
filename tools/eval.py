@@ -1,5 +1,6 @@
 #!/usr/bin/env python
-
+import os
+os.environ["MKL_THREADING_LAYER"] = "GNU"
 import numpy as np
 import pandas as pd
 import os
